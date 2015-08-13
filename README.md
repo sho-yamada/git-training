@@ -1,2 +1,3 @@
 # git-training
-test repository for training
+
+社内のGit研修用のリポジトリ

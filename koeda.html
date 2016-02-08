@@ -1,8 +1,15 @@
-#2016-01-25 git講習を山田さんから受けました。
-
-
 cd           チェンジディレクトリ
 ls           ディレクトリの一覧表示
+tab         途中でtabで文字入力保管してくれる
+pwd         現在いる場所を表示
+mkdir[フォルダ名]    ディレクトリを作成する
+mv [移動したいフォルダ名] [移動先のフォルダ名]     ファイルを移動させる
+
+
+git clone [リモートリポジトリ名] クローンする
+    HTTPは毎回ユーザー認証するやり方
+    SSHは証明書を作って認証するやり方
+
 git log      コミットのログの確認 qキーで画面を抜ける
 
 git status  リポジトリの状態の確認
@@ -21,5 +28,75 @@ push        git push origin master
 
 
 pull        git pull origin master
+(pullしたときに修正したファイルがかぶる場合がある、その場合はpullする前にcommitしましょう)
+merge   マージするには git merge 'ブランチ名'
 
-merge   マージ
+
+コンクリフト     HEAD部分が自分の修正
+
+【2016-02-02】
+★git remote -v でoriginの情報を見れる
+
+★作業のマージ
+git checkout master　マスターブランチへ移動(取り込む側のブランチへ移動)
+git merge koeda　koedaブランチ（取り込まれる側）をマージ
+★ブランチの作成２種類
+    ＃やり方１　git branch 'new branch name' (新規ブランチ作成)
+            git checkout 'branch name'(作ったブランチへ移動)
+          
+    ＃やり方２　git checkout -b 'new branch name'（新規ブランチを作成しつつ、さらに移動）
+
+★pull,pushとmergeの違い
+pull/pushはリモートとローカルの同ブランチのみのやり取りができる。
+よって各ブランチ同士のデータを取り込む場合はmerge
+
+★git branch -a　ローカルにあるブランチ名が確認できる
+
+
+
+
+
+
+【2016-02-04】
+★まとめてaddする方法
+git add. 修正したファイル全部をステージングする
+
+
+git rebase　コミットをまとめることもできる（あまり使わないほうが良い。他者とのコミット構造が変わってしまうため）
+git checkout コミット前なら最新のコミットまで戻れる
+git checkout index.html　ファイル名を指定するとそのファイルだけ最新のcommitまで戻せる。
+git checkout "git logのハッシュタグ名"　指定したcommitまで戻れ得る
+
+★クローンしてきたリポジトリの他のbranchへ移動する方法
+git branch -a リモートのブランチ一覧が見れる
+git checkout -b koeda origin/koeda リモート上にあるbranchを取得しつつローカルにもbranchを作成できる。
+
+★branchの削除(ローカルのブランチを消す方法)
+
+git branch -d koeda　branchを削除する(消すブランチにマージされてない情報があると削除できない)
+git branch -D koeda　branchを削除する（強制的に削除できる。）
+
+★branchの削除（リモートのブランチを消す方法。ブランチ名の前に:をつける）
+git push origin :koeda
+
+★コミットしないファイル（addしない、無視するファイルを選択する）
+.gitignoreというファイルを作成し無視するファイルを記述する。（プロジェクトのルートに置いておく）
+    フォルダ名/
+    .DS_Store
+のように記述していく
+
+
+
+
+
+
+
+
+==========#雄大くんに教えてもらったgit再スタートの方法==================
+現在のブランチ確認        git branch
+masterブランチへ移動       git checkout master
+念のためもう一度現在のブランチ確認       git branch
+自分のブランチ削除        git branch -D koeda
+新たにブランチ作成         git branch koeda
+自分のブランチへ移動      git checkout koeda
+
